@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>GCOEA</title>
+  </head>
+  <body>
+{% load static %}
+
+  <nav class="navbar navbar-expand-lg navbar-light "style="background-color: #00ff00;border-top:solid black 3px;">
+  <a class="navbar-brand" href="/"><img src="{% static 'images/logo.png' %}" width="50px" height="50px"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/"><button type="button" class="btn btn-primary">Home</button><span class="sr-only">(current)</span></a>
+      </li>
+     <li class="nav-item active">
+        <a class="nav-link" href="about"><button type="button" class="btn btn-primary">About</button><span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="login"><button type="button" class="btn btn-primary">Login</button><span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="contact"><button type="button" class="btn btn-primary">Contact</button><span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+      <div style="margin-right:10px">
+          <p align="right"><b>Logged in as ADMIN</b></p>
+          </div>
+  </div>
+</nav>
+<div style="border-bottom:solid black 3px;"></div>
+
+<ul class="nav justify-content-center">
+    <li class="nav-item" style="padding:10px;">
+    <a href="list"><button type="button" class="btn btn-info" >List</button></a>
+  </li>
+   <li class="nav-item" style="padding:10px;">
+       <a href="addprof"><button type="button" class="btn btn-warning" >Add Professor</button></a>
+  </li>
+    <li class="nav-item" style="padding:10px;">
+    <a href="addstud"><button type="button" class="btn btn-warning" >Add Student</button></a>
+  </li>
+   <li class="nav-item" style="padding:10px;">
+    <a href="delete"><button type="button" class="btn btn-dark" >Delete</button></a>
+  </li>
+    <li class="nav-item" style="padding:10px;">
+    <a href="check"><button type="button" class="btn btn-secondary" >Check</button></a>
+  </li>
+  <li class="nav-item" style="padding:10px;">
+  <form class="form-inline" action="search" method="post">{% csrf_token %}
+        <input type="text" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchkey">
+    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </li>
+   <li class="nav-item" style="padding:10px;">
+    <a class="" href="login" style=""><button type="button" class="btn btn-danger">Logout</button></a>
+  </li>
+</ul>
+
+  <div class="card container col-lg-6" style="border:solid green 3px;padding:5px;margin-top:10px;margin-bottom:10px">
+  <div class="card-body">
+    <form method="post" action="check">{% csrf_token %}
+        <center><h5>Please fill the Correct Details</h5></center>
+        <div class="form-row">
+
+    <div class="form-group col-md-6">
+         <label>Name</label>
+      <input type="text" class="form-control" name="name" >
+    </div>
+    <div class="form-group col-md-6">
+        <label>ID</label>
+      <input type="text" class="form-control" name="id">
+    </div>
+  </div>
+        {% if flag == 0 %}
+
+        <div class="" style="color:red;"><label>Incorrect Details</label></div>
+        {%endif%}
+
+        <div class="container">
+        <button type="submit" class="btn btn-success">Check</button>
+        </div>
+  </form>
+  </div>
+</div>
+
+
+    {% if flag == 1 %}
+
+    <div class="card container col-lg-6" style="border:solid purple 3px;padding:5px;margin-top:10px;margin-bottom:10px">
+    <div class="card-body">
+    <h5 class="card-title">Name : {{lst2.0}}</h5>
+    <h5 class="card-title">ID : {{lst2.1}}</h5>
+    <h5 class="card-title">Post : {{lst2.6}}</h5>
+    <h5 class="card-title">Salary : {{lst2.3}}</h5>
+    <h5 class="card-title">Date Of Birth : {{lst2.2}}</h5>
+    <h5 class="card-title">Contact No : {{lst2.4}}</h5>
+    <h5 class="card-title">Address : {{lst2.5}}</h5>
+    </div>
+    </div>
+    {%endif%}
+
+
+
+    {% if flag == 2 %}
+
+    <div class="card container col-lg-6" style="border:solid purple 3px;padding:5px;margin-top:10px;margin-bottom:10px">
+    <div class="card-body">
+    <h5 class="card-title">Name : {{lst.0}}</h5>
+    <h5 class="card-title">ID : {{lst.1}}</h5>
+    <h5 class="card-title">Branch : {{lst.3}}</h5>
+    <h5 class="card-title">Year : {{lst.4}}</h5>
+    <h5 class="card-title">CGPA : {{lst.7}}</h5>
+    <h5 class="card-title">Date Of Birth : {{lst.2}}</h5>
+    <h5 class="card-title">Contact No : {{lst.5}}</h5>
+    <h5 class="card-title">Address : {{lst.6}}</h5>
+    </div>
+    </div>
+    {%endif%}
+
+
+
+
+  <div class="card-footer" style="background-color: #00ff00;border-bottom:solid black 3px;border-top:solid black 3px;">
+      <center><b>Developed By : @GroupNo8 IDs : 18007011 18007012 18007070</b></center>
+  </div>
+</div>
+
+
+  <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
